@@ -43,6 +43,9 @@ public class ParticipateActivitiesUserServiceImpl implements ParticipateActiviti
         if(participateActivitiesUser.getUserid()!=null){
             criteria.andUseridEqualTo(participateActivitiesUser.getUserid());
         }
+        if(participateActivitiesUser.getUserCustomActivityId()!=null){
+            criteria.andUserCustomActivityIdEqualTo(participateActivitiesUser.getUserCustomActivityId());
+        }
         return new PageInfo<ParticipateActivitiesUser>(participateActivitiesUserMapper.selectByExample(userExample));
     }
 }
