@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzit.mapper.VenuesMapper" >
+  <resultMap id="BaseResultMap" type="com.xzit.entity.Venues" >
+    <id column="venuesid" property="venuesid" jdbcType="INTEGER" />
+    <result column="venues_user_charge" property="venuesUserCharge" jdbcType="INTEGER" />
+    <result column="venues_provice" property="venuesProvice" jdbcType="INTEGER" />
+    <result column="venues_city" property="venuesCity" jdbcType="INTEGER" />
+    <result column="venues_areas" property="venuesAreas" jdbcType="INTEGER" />
+    <result column="venues_address" property="venuesAddress" jdbcType="VARCHAR" />
+    <result column="venues_longitude" property="venuesLongitude" jdbcType="DECIMAL" />
+    <result column="venues_latitude" property="venuesLatitude" jdbcType="DECIMAL" />
+    <result column="open_time" property="openTime" jdbcType="TIME" />
+    <result column="close_time" property="closeTime" jdbcType="TIME" />
+    <result column="venues_name" property="venuesName" jdbcType="VARCHAR" />
+    <result column="deletestate" property="deletestate" jdbcType="INTEGER" />
+    <result column="cause" property="cause" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="brief" property="brief" jdbcType="VARCHAR" />
+    <result column="imageurl" property="imageurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    venuesid, venues_user_charge, venues_provice, venues_city, venues_areas, venues_address, 
+    venues_longitude, venues_latitude, open_time, close_time, venues_name, deletestate, 
+    cause, phone, brief, imageurl
+  </sql>
+  <select id="selectByExample" resultMap="veninfo" parameterType="com.xzit.entity.VenuesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from venues
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="veninfo" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from venues
+    where venuesid = #{venuesid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from venues
+    where venuesid = #{venuesid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xzit.entity.VenuesExample" >
+    delete from venues
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xzit.entity.Venues" >
+    insert into venues (venuesid, venues_user_charge, venues_provice, 
+      venues_city, venues_areas, venues_address, 
+      venues_longitude, venues_latitude, open_time, 
+      close_time, venues_name, deletestate, 
+      cause, phone, brief, 
+      imageurl)
+    values (#{venuesid,jdbcType=INTEGER}, #{venuesUserCharge,jdbcType=INTEGER}, #{venuesProvice,jdbcType=INTEGER}, 
+      #{venuesCity,jdbcType=INTEGER}, #{venuesAreas,jdbcType=INTEGER}, #{venuesAddress,jdbcType=VARCHAR}, 
+      #{venuesLongitude,jdbcType=DECIMAL}, #{venuesLatitude,jdbcType=DECIMAL}, #{openTime,jdbcType=TIME}, 
+      #{closeTime,jdbcType=TIME}, #{venuesName,jdbcType=VARCHAR}, #{deletestate,jdbcType=INTEGER}, 
+      #{cause,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, 
+      #{imageurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xzit.entity.Venues" >
+    insert into venues
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="venuesid != null" >
+        venuesid,
+      </if>
+      <if test="venuesUserCharge != null" >
+        venues_user_charge,
+      </if>
+      <if test="venuesProvice != null" >
+        venues_provice,
+      </if>
+      <if test="venuesCity != null" >
+        venues_city,
+      </if>
+      <if test="venuesAreas != null" >
+        venues_areas,
+      </if>
+      <if test="venuesAddress != null" >
+        venues_address,
+      </if>
+      <if test="venuesLongitude != null" >
+        venues_longitude,
+      </if>
+      <if test="venuesLatitude != null" >
+        venues_latitude,
+      </if>
+      <if test="openTime != null" >
+        open_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="venuesName != null" >
+        venues_name,
+      </if>
+      <if test="deletestate != null" >
+        deletestate,
+      </if>
+      <if test="cause != null" >
+        cause,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+      <if test="imageurl != null" >
+        imageurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="venuesid != null" >
+        #{venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="venuesUserCharge != null" >
+        #{venuesUserCharge,jdbcType=INTEGER},
+      </if>
+      <if test="venuesProvice != null" >
+        #{venuesProvice,jdbcType=INTEGER},
+      </if>
+      <if test="venuesCity != null" >
+        #{venuesCity,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAreas != null" >
+        #{venuesAreas,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAddress != null" >
+        #{venuesAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="venuesLongitude != null" >
+        #{venuesLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="venuesLatitude != null" >
+        #{venuesLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=TIME},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime,jdbcType=TIME},
+      </if>
+      <if test="venuesName != null" >
+        #{venuesName,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestate != null" >
+        #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="cause != null" >
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null" >
+        #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null" >
+        #{imageurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xzit.entity.VenuesExample" resultType="java.lang.Integer" >
+    select count(*) from venues
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update venues
+    <set >
+      <if test="record.venuesid != null" >
+        venuesid = #{record.venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesUserCharge != null" >
+        venues_user_charge = #{record.venuesUserCharge,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesProvice != null" >
+        venues_provice = #{record.venuesProvice,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesCity != null" >
+        venues_city = #{record.venuesCity,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesAreas != null" >
+        venues_areas = #{record.venuesAreas,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesAddress != null" >
+        venues_address = #{record.venuesAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.venuesLongitude != null" >
+        venues_longitude = #{record.venuesLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.venuesLatitude != null" >
+        venues_latitude = #{record.venuesLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.openTime != null" >
+        open_time = #{record.openTime,jdbcType=TIME},
+      </if>
+      <if test="record.closeTime != null" >
+        close_time = #{record.closeTime,jdbcType=TIME},
+      </if>
+      <if test="record.venuesName != null" >
+        venues_name = #{record.venuesName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deletestate != null" >
+        deletestate = #{record.deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.cause != null" >
+        cause = #{record.cause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brief != null" >
+        brief = #{record.brief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageurl != null" >
+        imageurl = #{record.imageurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update venues
+    set venuesid = #{record.venuesid,jdbcType=INTEGER},
+      venues_user_charge = #{record.venuesUserCharge,jdbcType=INTEGER},
+      venues_provice = #{record.venuesProvice,jdbcType=INTEGER},
+      venues_city = #{record.venuesCity,jdbcType=INTEGER},
+      venues_areas = #{record.venuesAreas,jdbcType=INTEGER},
+      venues_address = #{record.venuesAddress,jdbcType=VARCHAR},
+      venues_longitude = #{record.venuesLongitude,jdbcType=DECIMAL},
+      venues_latitude = #{record.venuesLatitude,jdbcType=DECIMAL},
+      open_time = #{record.openTime,jdbcType=TIME},
+      close_time = #{record.closeTime,jdbcType=TIME},
+      venues_name = #{record.venuesName,jdbcType=VARCHAR},
+      deletestate = #{record.deletestate,jdbcType=INTEGER},
+      cause = #{record.cause,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      imageurl = #{record.imageurl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzit.entity.Venues" >
+    update venues
+    <set >
+      <if test="venuesUserCharge != null" >
+        venues_user_charge = #{venuesUserCharge,jdbcType=INTEGER},
+      </if>
+      <if test="venuesProvice != null" >
+        venues_provice = #{venuesProvice,jdbcType=INTEGER},
+      </if>
+      <if test="venuesCity != null" >
+        venues_city = #{venuesCity,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAreas != null" >
+        venues_areas = #{venuesAreas,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAddress != null" >
+        venues_address = #{venuesAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="venuesLongitude != null" >
+        venues_longitude = #{venuesLongitude,jdbcType=DECIMAL},
+      </if>
+      <if test="venuesLatitude != null" >
+        venues_latitude = #{venuesLatitude,jdbcType=DECIMAL},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=TIME},
+      </if>
+      <if test="closeTime != null" >
+        close_time = #{closeTime,jdbcType=TIME},
+      </if>
+      <if test="venuesName != null" >
+        venues_name = #{venuesName,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestate != null" >
+        deletestate = #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="cause != null" >
+        cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null" >
+        brief = #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="imageurl != null" >
+        imageurl = #{imageurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where venuesid = #{venuesid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzit.entity.Venues" >
+    update venues
+    set venues_user_charge = #{venuesUserCharge,jdbcType=INTEGER},
+      venues_provice = #{venuesProvice,jdbcType=INTEGER},
+      venues_city = #{venuesCity,jdbcType=INTEGER},
+      venues_areas = #{venuesAreas,jdbcType=INTEGER},
+      venues_address = #{venuesAddress,jdbcType=VARCHAR},
+      venues_longitude = #{venuesLongitude,jdbcType=DECIMAL},
+      venues_latitude = #{venuesLatitude,jdbcType=DECIMAL},
+      open_time = #{openTime,jdbcType=TIME},
+      close_time = #{closeTime,jdbcType=TIME},
+      venues_name = #{venuesName,jdbcType=VARCHAR},
+      deletestate = #{deletestate,jdbcType=INTEGER},
+      cause = #{cause,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      imageurl = #{imageurl,jdbcType=VARCHAR}
+    where venuesid = #{venuesid,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="veninfo" type="com.xzit.entity.Venues" extends="BaseResultMap">
+    <association
+            property="userCharge"
+            column="venues_user_charge"
+            select="com.xzit.mapper.UserMapper.selectByPrimaryKey"
+            javaType="com.xzit.entity.User">
+    </association>
+    <association
+            property="provinces"
+            column="venues_provice"
+            select="com.xzit.mapper.ProvincesMapper.getProvince"
+            javaType="com.xzit.entity.Provinces">
+    </association>
+    <association
+            property="cities"
+            column="venues_city"
+            select="com.xzit.mapper.CitiesMapper.getCity"
+            javaType="com.xzit.entity.Cities">
+    </association>
+    <association
+            property="areas"
+            column="venues_areas"
+            select="com.xzit.mapper.AreasMapper.getArea"
+            javaType="com.xzit.entity.Areas">
+    </association>
+  </resultMap>
+</mapper>

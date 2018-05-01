@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzit.mapper.VenuesAllocationMapper" >
+  <resultMap id="BaseResultMap" type="com.xzit.entity.VenuesAllocation" >
+    <id column="venues_allocation_id" property="venuesAllocationId" jdbcType="INTEGER" />
+    <result column="venuesid" property="venuesid" jdbcType="INTEGER" />
+    <result column="venues_configuration" property="venuesConfiguration" jdbcType="INTEGER" />
+    <result column="venues_allocation_state" property="venuesAllocationState" jdbcType="INTEGER" />
+    <result column="fee_scale" property="feeScale" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    venues_allocation_id, venuesid, venues_configuration, venues_allocation_state, fee_scale, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="venuesallocationinfo" parameterType="com.xzit.entity.VenuesAllocationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from venues_allocation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="venuesallocationinfo" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from venues_allocation
+    where venues_allocation_id = #{venuesAllocationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from venues_allocation
+    where venues_allocation_id = #{venuesAllocationId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xzit.entity.VenuesAllocationExample" >
+    delete from venues_allocation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xzit.entity.VenuesAllocation" >
+    insert into venues_allocation (venues_allocation_id, venuesid, venues_configuration, 
+      venues_allocation_state, fee_scale, remark
+      )
+    values (#{venuesAllocationId,jdbcType=INTEGER}, #{venuesid,jdbcType=INTEGER}, #{venuesConfiguration,jdbcType=INTEGER}, 
+      #{venuesAllocationState,jdbcType=INTEGER}, #{feeScale,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xzit.entity.VenuesAllocation" >
+    insert into venues_allocation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="venuesAllocationId != null" >
+        venues_allocation_id,
+      </if>
+      <if test="venuesid != null" >
+        venuesid,
+      </if>
+      <if test="venuesConfiguration != null" >
+        venues_configuration,
+      </if>
+      <if test="venuesAllocationState != null" >
+        venues_allocation_state,
+      </if>
+      <if test="feeScale != null" >
+        fee_scale,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="venuesAllocationId != null" >
+        #{venuesAllocationId,jdbcType=INTEGER},
+      </if>
+      <if test="venuesid != null" >
+        #{venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="venuesConfiguration != null" >
+        #{venuesConfiguration,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAllocationState != null" >
+        #{venuesAllocationState,jdbcType=INTEGER},
+      </if>
+      <if test="feeScale != null" >
+        #{feeScale,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xzit.entity.VenuesAllocationExample" resultType="java.lang.Integer" >
+    select count(*) from venues_allocation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update venues_allocation
+    <set >
+      <if test="record.venuesAllocationId != null" >
+        venues_allocation_id = #{record.venuesAllocationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesid != null" >
+        venuesid = #{record.venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesConfiguration != null" >
+        venues_configuration = #{record.venuesConfiguration,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesAllocationState != null" >
+        venues_allocation_state = #{record.venuesAllocationState,jdbcType=INTEGER},
+      </if>
+      <if test="record.feeScale != null" >
+        fee_scale = #{record.feeScale,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update venues_allocation
+    set venues_allocation_id = #{record.venuesAllocationId,jdbcType=INTEGER},
+      venuesid = #{record.venuesid,jdbcType=INTEGER},
+      venues_configuration = #{record.venuesConfiguration,jdbcType=INTEGER},
+      venues_allocation_state = #{record.venuesAllocationState,jdbcType=INTEGER},
+      fee_scale = #{record.feeScale,jdbcType=DECIMAL},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzit.entity.VenuesAllocation" >
+    update venues_allocation
+    <set >
+      <if test="venuesid != null" >
+        venuesid = #{venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="venuesConfiguration != null" >
+        venues_configuration = #{venuesConfiguration,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAllocationState != null" >
+        venues_allocation_state = #{venuesAllocationState,jdbcType=INTEGER},
+      </if>
+      <if test="feeScale != null" >
+        fee_scale = #{feeScale,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where venues_allocation_id = #{venuesAllocationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzit.entity.VenuesAllocation" >
+    update venues_allocation
+    set venuesid = #{venuesid,jdbcType=INTEGER},
+      venues_configuration = #{venuesConfiguration,jdbcType=INTEGER},
+      venues_allocation_state = #{venuesAllocationState,jdbcType=INTEGER},
+      fee_scale = #{feeScale,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR}
+    where venues_allocation_id = #{venuesAllocationId,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="venuesallocationinfo" type="com.xzit.entity.VenuesAllocation" extends="BaseResultMap">
+    <association property="venues"  column="venuesid"
+                 select="com.xzit.mapper.VenuesMapper.selectByPrimaryKey"
+                 javaType="com.xzit.entity.Venues">
+    </association>
+  </resultMap>
+</mapper>

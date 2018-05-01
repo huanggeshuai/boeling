@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzit.mapper.ParticipateActivitiesUserMapper" >
+  <resultMap id="BaseResultMap" type="com.xzit.entity.ParticipateActivitiesUser" >
+    <id column="participate_activities_id_user" property="participateActivitiesIdUser" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="user_custom_activity_id" property="userCustomActivityId" jdbcType="INTEGER" />
+    <result column="totalnum" property="totalnum" jdbcType="INTEGER" />
+    <result column="payment_money" property="paymentMoney" jdbcType="DECIMAL" />
+    <result column="payment_state" property="paymentState" jdbcType="INTEGER" />
+    <result column="evaluate" property="evaluate" jdbcType="VARCHAR" />
+    <result column="participate_state" property="participateState" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="deletestate" property="deletestate" jdbcType="INTEGER" />
+    <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    participate_activities_id_user, userid, user_custom_activity_id, totalnum, payment_money, 
+    payment_state, evaluate, participate_state, time, deletestate, ordertime
+  </sql>
+  <select id="selectByExample" resultMap="info" parameterType="com.xzit.entity.ParticipateActivitiesUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from participate_activities_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="info" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from participate_activities_user
+    where participate_activities_id_user = #{participateActivitiesIdUser,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from participate_activities_user
+    where participate_activities_id_user = #{participateActivitiesIdUser,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xzit.entity.ParticipateActivitiesUserExample" >
+    delete from participate_activities_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xzit.entity.ParticipateActivitiesUser" >
+    insert into participate_activities_user (participate_activities_id_user, userid, 
+      user_custom_activity_id, totalnum, payment_money, 
+      payment_state, evaluate, participate_state, 
+      time, deletestate, ordertime
+      )
+    values (#{participateActivitiesIdUser,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{userCustomActivityId,jdbcType=INTEGER}, #{totalnum,jdbcType=INTEGER}, #{paymentMoney,jdbcType=DECIMAL}, 
+      #{paymentState,jdbcType=INTEGER}, #{evaluate,jdbcType=VARCHAR}, #{participateState,jdbcType=INTEGER}, 
+      #{time,jdbcType=TIMESTAMP}, #{deletestate,jdbcType=INTEGER}, #{ordertime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="participateActivitiesIdUser" useGeneratedKeys="true" parameterType="com.xzit.entity.ParticipateActivitiesUser" >
+    insert into participate_activities_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="participateActivitiesIdUser != null" >
+        participate_activities_id_user,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="userCustomActivityId != null" >
+        user_custom_activity_id,
+      </if>
+      <if test="totalnum != null" >
+        totalnum,
+      </if>
+      <if test="paymentMoney != null" >
+        payment_money,
+      </if>
+      <if test="paymentState != null" >
+        payment_state,
+      </if>
+      <if test="evaluate != null" >
+        evaluate,
+      </if>
+      <if test="participateState != null" >
+        participate_state,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="deletestate != null" >
+        deletestate,
+      </if>
+      <if test="ordertime != null" >
+        ordertime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="participateActivitiesIdUser != null" >
+        #{participateActivitiesIdUser,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="userCustomActivityId != null" >
+        #{userCustomActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="totalnum != null" >
+        #{totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="paymentMoney != null" >
+        #{paymentMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentState != null" >
+        #{paymentState,jdbcType=INTEGER},
+      </if>
+      <if test="evaluate != null" >
+        #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="participateState != null" >
+        #{participateState,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletestate != null" >
+        #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xzit.entity.ParticipateActivitiesUserExample" resultType="java.lang.Integer" >
+    select count(*) from participate_activities_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update participate_activities_user
+    <set >
+      <if test="record.participateActivitiesIdUser != null" >
+        participate_activities_id_user = #{record.participateActivitiesIdUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userCustomActivityId != null" >
+        user_custom_activity_id = #{record.userCustomActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalnum != null" >
+        totalnum = #{record.totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentMoney != null" >
+        payment_money = #{record.paymentMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paymentState != null" >
+        payment_state = #{record.paymentState,jdbcType=INTEGER},
+      </if>
+      <if test="record.evaluate != null" >
+        evaluate = #{record.evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.participateState != null" >
+        participate_state = #{record.participateState,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletestate != null" >
+        deletestate = #{record.deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordertime != null" >
+        ordertime = #{record.ordertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update participate_activities_user
+    set participate_activities_id_user = #{record.participateActivitiesIdUser,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      user_custom_activity_id = #{record.userCustomActivityId,jdbcType=INTEGER},
+      totalnum = #{record.totalnum,jdbcType=INTEGER},
+      payment_money = #{record.paymentMoney,jdbcType=DECIMAL},
+      payment_state = #{record.paymentState,jdbcType=INTEGER},
+      evaluate = #{record.evaluate,jdbcType=VARCHAR},
+      participate_state = #{record.participateState,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      deletestate = #{record.deletestate,jdbcType=INTEGER},
+      ordertime = #{record.ordertime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzit.entity.ParticipateActivitiesUser" >
+    update participate_activities_user
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="userCustomActivityId != null" >
+        user_custom_activity_id = #{userCustomActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="totalnum != null" >
+        totalnum = #{totalnum,jdbcType=INTEGER},
+      </if>
+      <if test="paymentMoney != null" >
+        payment_money = #{paymentMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentState != null" >
+        payment_state = #{paymentState,jdbcType=INTEGER},
+      </if>
+      <if test="evaluate != null" >
+        evaluate = #{evaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="participateState != null" >
+        participate_state = #{participateState,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletestate != null" >
+        deletestate = #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null" >
+        ordertime = #{ordertime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where participate_activities_id_user = #{participateActivitiesIdUser,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzit.entity.ParticipateActivitiesUser" >
+    update participate_activities_user
+    set userid = #{userid,jdbcType=INTEGER},
+      user_custom_activity_id = #{userCustomActivityId,jdbcType=INTEGER},
+      totalnum = #{totalnum,jdbcType=INTEGER},
+      payment_money = #{paymentMoney,jdbcType=DECIMAL},
+      payment_state = #{paymentState,jdbcType=INTEGER},
+      evaluate = #{evaluate,jdbcType=VARCHAR},
+      participate_state = #{participateState,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      deletestate = #{deletestate,jdbcType=INTEGER},
+      ordertime = #{ordertime,jdbcType=TIMESTAMP}
+    where participate_activities_id_user = #{participateActivitiesIdUser,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="info" type="com.xzit.entity.ParticipateActivitiesUser" extends="BaseResultMap">
+    <association property="user"
+                 javaType="com.xzit.entity.User"
+                 column="userid"
+                 select="com.xzit.mapper.UserMapper.selectByPrimaryKey">
+    </association>
+    <association property="userCustomActivity"
+                 javaType="com.xzit.entity.UserCustomActivity"
+                 column="user_custom_activity_id"
+                 select="com.xzit.mapper.UserCustomActivityMapper.selectByPrimaryKey">
+    </association>
+  </resultMap>
+</mapper>

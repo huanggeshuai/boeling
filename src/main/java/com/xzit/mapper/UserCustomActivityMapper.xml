@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzit.mapper.UserCustomActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.xzit.entity.UserCustomActivity" >
+    <id column="user_custom_activity_id" property="userCustomActivityId" jdbcType="INTEGER" />
+    <result column="venuesid" property="venuesid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="venues_allocation_id" property="venuesAllocationId" jdbcType="INTEGER" />
+    <result column="activities_setting_time" property="activitiesSettingTime" jdbcType="TIMESTAMP" />
+    <result column="activities_start_time" property="activitiesStartTime" jdbcType="TIMESTAMP" />
+    <result column="activities_stop_time" property="activitiesStopTime" jdbcType="TIMESTAMP" />
+    <result column="enlist_start_time" property="enlistStartTime" jdbcType="TIMESTAMP" />
+    <result column="enlist_stop_time" property="enlistStopTime" jdbcType="TIMESTAMP" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="enlistnum" property="enlistnum" jdbcType="INTEGER" />
+    <result column="paymentmoney" property="paymentmoney" jdbcType="DECIMAL" />
+    <result column="auditing" property="auditing" jdbcType="INTEGER" />
+    <result column="cause" property="cause" jdbcType="VARCHAR" />
+    <result column="pay_state" property="payState" jdbcType="INTEGER" />
+    <result column="deletestate" property="deletestate" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="imageurl" property="imageurl" jdbcType="VARCHAR" />
+    <result column="activityname" property="activityname" jdbcType="VARCHAR" />
+    <result column="userpay" property="userpay" jdbcType="DECIMAL" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xzit.entity.UserCustomActivity" extends="BaseResultMap" >
+    <result column="detailinfo" property="detailinfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_custom_activity_id, venuesid, userid, venues_allocation_id, activities_setting_time, 
+    activities_start_time, activities_stop_time, enlist_start_time, enlist_stop_time, 
+    total, enlistnum, paymentmoney, auditing, cause, pay_state, deletestate, createtime, 
+    imageurl, activityname, userpay
+  </sql>
+  <sql id="Blob_Column_List" >
+    detailinfo
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="allinfo" parameterType="com.xzit.entity.UserCustomActivityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_custom_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="allinfo" parameterType="com.xzit.entity.UserCustomActivityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_custom_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="allinfo" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_custom_activity
+    where user_custom_activity_id = #{userCustomActivityId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_custom_activity
+    where user_custom_activity_id = #{userCustomActivityId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xzit.entity.UserCustomActivityExample" >
+    delete from user_custom_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xzit.entity.UserCustomActivity" >
+    insert into user_custom_activity (user_custom_activity_id, venuesid, userid, 
+      venues_allocation_id, activities_setting_time, 
+      activities_start_time, activities_stop_time, 
+      enlist_start_time, enlist_stop_time, total, 
+      enlistnum, paymentmoney, auditing, 
+      cause, pay_state, deletestate, 
+      createtime, imageurl, activityname, 
+      userpay, detailinfo)
+    values (#{userCustomActivityId,jdbcType=INTEGER}, #{venuesid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{venuesAllocationId,jdbcType=INTEGER}, #{activitiesSettingTime,jdbcType=TIMESTAMP}, 
+      #{activitiesStartTime,jdbcType=TIMESTAMP}, #{activitiesStopTime,jdbcType=TIMESTAMP}, 
+      #{enlistStartTime,jdbcType=TIMESTAMP}, #{enlistStopTime,jdbcType=TIMESTAMP}, #{total,jdbcType=INTEGER}, 
+      #{enlistnum,jdbcType=INTEGER}, #{paymentmoney,jdbcType=DECIMAL}, #{auditing,jdbcType=INTEGER}, 
+      #{cause,jdbcType=VARCHAR}, #{payState,jdbcType=INTEGER}, #{deletestate,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{imageurl,jdbcType=VARCHAR}, #{activityname,jdbcType=VARCHAR}, 
+      #{userpay,jdbcType=DECIMAL}, #{detailinfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective"  keyProperty="userCustomActivityId" useGeneratedKeys="true" parameterType="com.xzit.entity.UserCustomActivity" >
+    insert into user_custom_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userCustomActivityId != null" >
+        user_custom_activity_id,
+      </if>
+      <if test="venuesid != null" >
+        venuesid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="venuesAllocationId != null" >
+        venues_allocation_id,
+      </if>
+      <if test="activitiesSettingTime != null" >
+        activities_setting_time,
+      </if>
+      <if test="activitiesStartTime != null" >
+        activities_start_time,
+      </if>
+      <if test="activitiesStopTime != null" >
+        activities_stop_time,
+      </if>
+      <if test="enlistStartTime != null" >
+        enlist_start_time,
+      </if>
+      <if test="enlistStopTime != null" >
+        enlist_stop_time,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="enlistnum != null" >
+        enlistnum,
+      </if>
+      <if test="paymentmoney != null" >
+        paymentmoney,
+      </if>
+      <if test="auditing != null" >
+        auditing,
+      </if>
+      <if test="cause != null" >
+        cause,
+      </if>
+      <if test="payState != null" >
+        pay_state,
+      </if>
+      <if test="deletestate != null" >
+        deletestate,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="imageurl != null" >
+        imageurl,
+      </if>
+      <if test="activityname != null" >
+        activityname,
+      </if>
+      <if test="userpay != null" >
+        userpay,
+      </if>
+      <if test="detailinfo != null" >
+        detailinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userCustomActivityId != null" >
+        #{userCustomActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="venuesid != null" >
+        #{venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAllocationId != null" >
+        #{venuesAllocationId,jdbcType=INTEGER},
+      </if>
+      <if test="activitiesSettingTime != null" >
+        #{activitiesSettingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitiesStartTime != null" >
+        #{activitiesStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitiesStopTime != null" >
+        #{activitiesStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enlistStartTime != null" >
+        #{enlistStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enlistStopTime != null" >
+        #{enlistStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="enlistnum != null" >
+        #{enlistnum,jdbcType=INTEGER},
+      </if>
+      <if test="paymentmoney != null" >
+        #{paymentmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="auditing != null" >
+        #{auditing,jdbcType=INTEGER},
+      </if>
+      <if test="cause != null" >
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="payState != null" >
+        #{payState,jdbcType=INTEGER},
+      </if>
+      <if test="deletestate != null" >
+        #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageurl != null" >
+        #{imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="activityname != null" >
+        #{activityname,jdbcType=VARCHAR},
+      </if>
+      <if test="userpay != null" >
+        #{userpay,jdbcType=DECIMAL},
+      </if>
+      <if test="detailinfo != null" >
+        #{detailinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xzit.entity.UserCustomActivityExample" resultType="java.lang.Integer" >
+    select count(*) from user_custom_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_custom_activity
+    <set >
+      <if test="record.userCustomActivityId != null" >
+        user_custom_activity_id = #{record.userCustomActivityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesid != null" >
+        venuesid = #{record.venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.venuesAllocationId != null" >
+        venues_allocation_id = #{record.venuesAllocationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.activitiesSettingTime != null" >
+        activities_setting_time = #{record.activitiesSettingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activitiesStartTime != null" >
+        activities_start_time = #{record.activitiesStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.activitiesStopTime != null" >
+        activities_stop_time = #{record.activitiesStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enlistStartTime != null" >
+        enlist_start_time = #{record.enlistStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.enlistStopTime != null" >
+        enlist_stop_time = #{record.enlistStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=INTEGER},
+      </if>
+      <if test="record.enlistnum != null" >
+        enlistnum = #{record.enlistnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentmoney != null" >
+        paymentmoney = #{record.paymentmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.auditing != null" >
+        auditing = #{record.auditing,jdbcType=INTEGER},
+      </if>
+      <if test="record.cause != null" >
+        cause = #{record.cause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payState != null" >
+        pay_state = #{record.payState,jdbcType=INTEGER},
+      </if>
+      <if test="record.deletestate != null" >
+        deletestate = #{record.deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.imageurl != null" >
+        imageurl = #{record.imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityname != null" >
+        activityname = #{record.activityname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userpay != null" >
+        userpay = #{record.userpay,jdbcType=DECIMAL},
+      </if>
+      <if test="record.detailinfo != null" >
+        detailinfo = #{record.detailinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update user_custom_activity
+    set user_custom_activity_id = #{record.userCustomActivityId,jdbcType=INTEGER},
+      venuesid = #{record.venuesid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      venues_allocation_id = #{record.venuesAllocationId,jdbcType=INTEGER},
+      activities_setting_time = #{record.activitiesSettingTime,jdbcType=TIMESTAMP},
+      activities_start_time = #{record.activitiesStartTime,jdbcType=TIMESTAMP},
+      activities_stop_time = #{record.activitiesStopTime,jdbcType=TIMESTAMP},
+      enlist_start_time = #{record.enlistStartTime,jdbcType=TIMESTAMP},
+      enlist_stop_time = #{record.enlistStopTime,jdbcType=TIMESTAMP},
+      total = #{record.total,jdbcType=INTEGER},
+      enlistnum = #{record.enlistnum,jdbcType=INTEGER},
+      paymentmoney = #{record.paymentmoney,jdbcType=DECIMAL},
+      auditing = #{record.auditing,jdbcType=INTEGER},
+      cause = #{record.cause,jdbcType=VARCHAR},
+      pay_state = #{record.payState,jdbcType=INTEGER},
+      deletestate = #{record.deletestate,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      imageurl = #{record.imageurl,jdbcType=VARCHAR},
+      activityname = #{record.activityname,jdbcType=VARCHAR},
+      userpay = #{record.userpay,jdbcType=DECIMAL},
+      detailinfo = #{record.detailinfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_custom_activity
+    set user_custom_activity_id = #{record.userCustomActivityId,jdbcType=INTEGER},
+      venuesid = #{record.venuesid,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      venues_allocation_id = #{record.venuesAllocationId,jdbcType=INTEGER},
+      activities_setting_time = #{record.activitiesSettingTime,jdbcType=TIMESTAMP},
+      activities_start_time = #{record.activitiesStartTime,jdbcType=TIMESTAMP},
+      activities_stop_time = #{record.activitiesStopTime,jdbcType=TIMESTAMP},
+      enlist_start_time = #{record.enlistStartTime,jdbcType=TIMESTAMP},
+      enlist_stop_time = #{record.enlistStopTime,jdbcType=TIMESTAMP},
+      total = #{record.total,jdbcType=INTEGER},
+      enlistnum = #{record.enlistnum,jdbcType=INTEGER},
+      paymentmoney = #{record.paymentmoney,jdbcType=DECIMAL},
+      auditing = #{record.auditing,jdbcType=INTEGER},
+      cause = #{record.cause,jdbcType=VARCHAR},
+      pay_state = #{record.payState,jdbcType=INTEGER},
+      deletestate = #{record.deletestate,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      imageurl = #{record.imageurl,jdbcType=VARCHAR},
+      activityname = #{record.activityname,jdbcType=VARCHAR},
+      userpay = #{record.userpay,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzit.entity.UserCustomActivity" >
+    update user_custom_activity
+    <set >
+      <if test="venuesid != null" >
+        venuesid = #{venuesid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="venuesAllocationId != null" >
+        venues_allocation_id = #{venuesAllocationId,jdbcType=INTEGER},
+      </if>
+      <if test="activitiesSettingTime != null" >
+        activities_setting_time = #{activitiesSettingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitiesStartTime != null" >
+        activities_start_time = #{activitiesStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitiesStopTime != null" >
+        activities_stop_time = #{activitiesStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enlistStartTime != null" >
+        enlist_start_time = #{enlistStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enlistStopTime != null" >
+        enlist_stop_time = #{enlistStopTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="enlistnum != null" >
+        enlistnum = #{enlistnum,jdbcType=INTEGER},
+      </if>
+      <if test="paymentmoney != null" >
+        paymentmoney = #{paymentmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="auditing != null" >
+        auditing = #{auditing,jdbcType=INTEGER},
+      </if>
+      <if test="cause != null" >
+        cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="payState != null" >
+        pay_state = #{payState,jdbcType=INTEGER},
+      </if>
+      <if test="deletestate != null" >
+        deletestate = #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageurl != null" >
+        imageurl = #{imageurl,jdbcType=VARCHAR},
+      </if>
+      <if test="activityname != null" >
+        activityname = #{activityname,jdbcType=VARCHAR},
+      </if>
+      <if test="userpay != null" >
+        userpay = #{userpay,jdbcType=DECIMAL},
+      </if>
+      <if test="detailinfo != null" >
+        detailinfo = #{detailinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where user_custom_activity_id = #{userCustomActivityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xzit.entity.UserCustomActivity" >
+    update user_custom_activity
+    set venuesid = #{venuesid,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      venues_allocation_id = #{venuesAllocationId,jdbcType=INTEGER},
+      activities_setting_time = #{activitiesSettingTime,jdbcType=TIMESTAMP},
+      activities_start_time = #{activitiesStartTime,jdbcType=TIMESTAMP},
+      activities_stop_time = #{activitiesStopTime,jdbcType=TIMESTAMP},
+      enlist_start_time = #{enlistStartTime,jdbcType=TIMESTAMP},
+      enlist_stop_time = #{enlistStopTime,jdbcType=TIMESTAMP},
+      total = #{total,jdbcType=INTEGER},
+      enlistnum = #{enlistnum,jdbcType=INTEGER},
+      paymentmoney = #{paymentmoney,jdbcType=DECIMAL},
+      auditing = #{auditing,jdbcType=INTEGER},
+      cause = #{cause,jdbcType=VARCHAR},
+      pay_state = #{payState,jdbcType=INTEGER},
+      deletestate = #{deletestate,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      imageurl = #{imageurl,jdbcType=VARCHAR},
+      activityname = #{activityname,jdbcType=VARCHAR},
+      userpay = #{userpay,jdbcType=DECIMAL},
+      detailinfo = #{detailinfo,jdbcType=LONGVARCHAR}
+    where user_custom_activity_id = #{userCustomActivityId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzit.entity.UserCustomActivity" >
+    update user_custom_activity
+    set venuesid = #{venuesid,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      venues_allocation_id = #{venuesAllocationId,jdbcType=INTEGER},
+      activities_setting_time = #{activitiesSettingTime,jdbcType=TIMESTAMP},
+      activities_start_time = #{activitiesStartTime,jdbcType=TIMESTAMP},
+      activities_stop_time = #{activitiesStopTime,jdbcType=TIMESTAMP},
+      enlist_start_time = #{enlistStartTime,jdbcType=TIMESTAMP},
+      enlist_stop_time = #{enlistStopTime,jdbcType=TIMESTAMP},
+      total = #{total,jdbcType=INTEGER},
+      enlistnum = #{enlistnum,jdbcType=INTEGER},
+      paymentmoney = #{paymentmoney,jdbcType=DECIMAL},
+      auditing = #{auditing,jdbcType=INTEGER},
+      cause = #{cause,jdbcType=VARCHAR},
+      pay_state = #{payState,jdbcType=INTEGER},
+      deletestate = #{deletestate,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      imageurl = #{imageurl,jdbcType=VARCHAR},
+      activityname = #{activityname,jdbcType=VARCHAR},
+      userpay = #{userpay,jdbcType=DECIMAL}
+    where user_custom_activity_id = #{userCustomActivityId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="allinfo" type="com.xzit.entity.UserCustomActivity" extends="ResultMapWithBLOBs">
+    <association property="user"
+                 javaType="com.xzit.entity.User"
+                 column="userid"
+                 select="com.xzit.mapper.UserMapper.selectByPrimaryKey">
+    </association>
+    <association property="venuesAllocation"
+                 javaType="com.xzit.entity.VenuesAllocation"
+                 column="venues_allocation_id"
+                 select="com.xzit.mapper.VenuesAllocationMapper.selectByPrimaryKey">
+    </association>
+    <association property="venues"
+                 javaType="com.xzit.entity.Venues"
+                 column="venuesid"
+                 select="com.xzit.mapper.VenuesMapper.selectByPrimaryKey">
+    </association>
+  </resultMap>
+</mapper>

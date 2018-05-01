@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzit.mapper.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="com.xzit.entity.Orders" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="income_state" property="incomeState" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="cause" property="cause" jdbcType="VARCHAR" />
+    <result column="income_user_id" property="incomeUserId" jdbcType="INTEGER" />
+    <result column="medium" property="medium" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="deletestate" property="deletestate" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, userid, income_state, money, cause, income_user_id, medium, time, deletestate
+  </sql>
+  <select id="selectByExample" resultMap="orderinfo" parameterType="com.xzit.entity.OrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="orderinfo" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xzit.entity.OrdersExample" >
+    delete from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xzit.entity.Orders" >
+    insert into orders (order_id, userid, income_state, 
+      money, cause, income_user_id, 
+      medium, time, deletestate
+      )
+    values (#{orderId,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{incomeState,jdbcType=INTEGER}, 
+      #{money,jdbcType=DECIMAL}, #{cause,jdbcType=VARCHAR}, #{incomeUserId,jdbcType=INTEGER}, 
+      #{medium,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{deletestate,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xzit.entity.Orders" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="incomeState != null" >
+        income_state,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="cause != null" >
+        cause,
+      </if>
+      <if test="incomeUserId != null" >
+        income_user_id,
+      </if>
+      <if test="medium != null" >
+        medium,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="deletestate != null" >
+        deletestate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="incomeState != null" >
+        #{incomeState,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="cause != null" >
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeUserId != null" >
+        #{incomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="medium != null" >
+        #{medium,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletestate != null" >
+        #{deletestate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xzit.entity.OrdersExample" resultType="java.lang.Integer" >
+    select count(*) from orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orders
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.incomeState != null" >
+        income_state = #{record.incomeState,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cause != null" >
+        cause = #{record.cause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.incomeUserId != null" >
+        income_user_id = #{record.incomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.medium != null" >
+        medium = #{record.medium,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deletestate != null" >
+        deletestate = #{record.deletestate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orders
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      income_state = #{record.incomeState,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=DECIMAL},
+      cause = #{record.cause,jdbcType=VARCHAR},
+      income_user_id = #{record.incomeUserId,jdbcType=INTEGER},
+      medium = #{record.medium,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      deletestate = #{record.deletestate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzit.entity.Orders" >
+    update orders
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="incomeState != null" >
+        income_state = #{incomeState,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="cause != null" >
+        cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeUserId != null" >
+        income_user_id = #{incomeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="medium != null" >
+        medium = #{medium,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletestate != null" >
+        deletestate = #{deletestate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzit.entity.Orders" >
+    update orders
+    set userid = #{userid,jdbcType=INTEGER},
+      income_state = #{incomeState,jdbcType=INTEGER},
+      money = #{money,jdbcType=DECIMAL},
+      cause = #{cause,jdbcType=VARCHAR},
+      income_user_id = #{incomeUserId,jdbcType=INTEGER},
+      medium = #{medium,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      deletestate = #{deletestate,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="orderinfo" type="com.xzit.entity.Orders" extends="BaseResultMap">
+    <association property="user"
+                 javaType="com.xzit.entity.User"
+                 column="userid"
+                 select="com.xzit.mapper.UserMapper.selectByPrimaryKey">
+    </association>
+    <association property="incomeUser"
+                 javaType="com.xzit.entity.User"
+                 column="income_user_id"
+                 select="com.xzit.mapper.UserMapper.selectByPrimaryKey">
+    </association>
+  </resultMap>
+</mapper>

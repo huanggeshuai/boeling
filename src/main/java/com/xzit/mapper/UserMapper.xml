@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xzit.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.xzit.entity.User" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_truename" property="userTruename" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_paypassword" property="userPaypassword" jdbcType="VARCHAR" />
+    <result column="user_balance" property="userBalance" jdbcType="DECIMAL" />
+    <result column="user_resign_date" property="userResignDate" jdbcType="TIMESTAMP" />
+    <result column="user_login_date" property="userLoginDate" jdbcType="TIMESTAMP" />
+    <result column="user_login_count" property="userLoginCount" jdbcType="INTEGER" />
+    <result column="user_state" property="userState" jdbcType="INTEGER" />
+    <result column="user_authority" property="userAuthority" jdbcType="INTEGER" />
+    <result column="user_drive" property="userDrive" jdbcType="VARCHAR" />
+    <result column="deletestate" property="deletestate" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, user_nickname, user_truename, user_email, user_password, user_paypassword, 
+    user_balance, user_resign_date, user_login_date, user_login_count, user_state, user_authority, 
+    user_drive, deletestate, phone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xzit.entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xzit.entity.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xzit.entity.User" >
+    insert into user (userid, user_nickname, user_truename, 
+      user_email, user_password, user_paypassword, 
+      user_balance, user_resign_date, user_login_date, 
+      user_login_count, user_state, user_authority, 
+      user_drive, deletestate, phone
+      )
+    values (#{userid,jdbcType=INTEGER}, #{userNickname,jdbcType=VARCHAR}, #{userTruename,jdbcType=VARCHAR}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{userPaypassword,jdbcType=VARCHAR}, 
+      #{userBalance,jdbcType=DECIMAL}, #{userResignDate,jdbcType=TIMESTAMP}, #{userLoginDate,jdbcType=TIMESTAMP}, 
+      #{userLoginCount,jdbcType=INTEGER}, #{userState,jdbcType=INTEGER}, #{userAuthority,jdbcType=INTEGER}, 
+      #{userDrive,jdbcType=VARCHAR}, #{deletestate,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xzit.entity.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="userNickname != null" >
+        user_nickname,
+      </if>
+      <if test="userTruename != null" >
+        user_truename,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userPaypassword != null" >
+        user_paypassword,
+      </if>
+      <if test="userBalance != null" >
+        user_balance,
+      </if>
+      <if test="userResignDate != null" >
+        user_resign_date,
+      </if>
+      <if test="userLoginDate != null" >
+        user_login_date,
+      </if>
+      <if test="userLoginCount != null" >
+        user_login_count,
+      </if>
+      <if test="userState != null" >
+        user_state,
+      </if>
+      <if test="userAuthority != null" >
+        user_authority,
+      </if>
+      <if test="userDrive != null" >
+        user_drive,
+      </if>
+      <if test="deletestate != null" >
+        deletestate,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userTruename != null" >
+        #{userTruename,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userPaypassword != null" >
+        #{userPaypassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userBalance != null" >
+        #{userBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="userResignDate != null" >
+        #{userResignDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLoginDate != null" >
+        #{userLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLoginCount != null" >
+        #{userLoginCount,jdbcType=INTEGER},
+      </if>
+      <if test="userState != null" >
+        #{userState,jdbcType=INTEGER},
+      </if>
+      <if test="userAuthority != null" >
+        #{userAuthority,jdbcType=INTEGER},
+      </if>
+      <if test="userDrive != null" >
+        #{userDrive,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestate != null" >
+        #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xzit.entity.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userNickname != null" >
+        user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userTruename != null" >
+        user_truename = #{record.userTruename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null" >
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null" >
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPaypassword != null" >
+        user_paypassword = #{record.userPaypassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userBalance != null" >
+        user_balance = #{record.userBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userResignDate != null" >
+        user_resign_date = #{record.userResignDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userLoginDate != null" >
+        user_login_date = #{record.userLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userLoginCount != null" >
+        user_login_count = #{record.userLoginCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.userState != null" >
+        user_state = #{record.userState,jdbcType=INTEGER},
+      </if>
+      <if test="record.userAuthority != null" >
+        user_authority = #{record.userAuthority,jdbcType=INTEGER},
+      </if>
+      <if test="record.userDrive != null" >
+        user_drive = #{record.userDrive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deletestate != null" >
+        deletestate = #{record.deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set userid = #{record.userid,jdbcType=INTEGER},
+      user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      user_truename = #{record.userTruename,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_paypassword = #{record.userPaypassword,jdbcType=VARCHAR},
+      user_balance = #{record.userBalance,jdbcType=DECIMAL},
+      user_resign_date = #{record.userResignDate,jdbcType=TIMESTAMP},
+      user_login_date = #{record.userLoginDate,jdbcType=TIMESTAMP},
+      user_login_count = #{record.userLoginCount,jdbcType=INTEGER},
+      user_state = #{record.userState,jdbcType=INTEGER},
+      user_authority = #{record.userAuthority,jdbcType=INTEGER},
+      user_drive = #{record.userDrive,jdbcType=VARCHAR},
+      deletestate = #{record.deletestate,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xzit.entity.User" >
+    update user
+    <set >
+      <if test="userNickname != null" >
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userTruename != null" >
+        user_truename = #{userTruename,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userPaypassword != null" >
+        user_paypassword = #{userPaypassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userBalance != null" >
+        user_balance = #{userBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="userResignDate != null" >
+        user_resign_date = #{userResignDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLoginDate != null" >
+        user_login_date = #{userLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLoginCount != null" >
+        user_login_count = #{userLoginCount,jdbcType=INTEGER},
+      </if>
+      <if test="userState != null" >
+        user_state = #{userState,jdbcType=INTEGER},
+      </if>
+      <if test="userAuthority != null" >
+        user_authority = #{userAuthority,jdbcType=INTEGER},
+      </if>
+      <if test="userDrive != null" >
+        user_drive = #{userDrive,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestate != null" >
+        deletestate = #{deletestate,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xzit.entity.User" >
+    update user
+    set user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_truename = #{userTruename,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_paypassword = #{userPaypassword,jdbcType=VARCHAR},
+      user_balance = #{userBalance,jdbcType=DECIMAL},
+      user_resign_date = #{userResignDate,jdbcType=TIMESTAMP},
+      user_login_date = #{userLoginDate,jdbcType=TIMESTAMP},
+      user_login_count = #{userLoginCount,jdbcType=INTEGER},
+      user_state = #{userState,jdbcType=INTEGER},
+      user_authority = #{userAuthority,jdbcType=INTEGER},
+      user_drive = #{userDrive,jdbcType=VARCHAR},
+      deletestate = #{deletestate,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>
