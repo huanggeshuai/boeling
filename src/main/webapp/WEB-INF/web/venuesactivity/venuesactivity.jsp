@@ -81,6 +81,7 @@
         panelWidth:450,
         idField:'venuesid',
         textField:'venuesName',
+        pagination: true,
         url:'http://localhost:8080/venues/venuesinfo.action',
         columns:[[
             {
