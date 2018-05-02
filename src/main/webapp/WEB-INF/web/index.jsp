@@ -136,14 +136,7 @@
                                 <p><span style="white-space:nowrap;">刷新菜单</span></p>
                             </a>
                         </td>
-                        <td id="60" title="TopJUI开发文档" class="topmenu systemName">
-                            <a class="l-btn-text bannerMenu" href="javascript:void(0)">
-                                <p>
-                                    <lable class="fa fa-puzzle-piece"></lable>
-                                </p>
-                                <p><span style="white-space:nowrap;">开发文档</span></p>
-                            </a>
-                        </td>
+
                         <td>
 
                         </td>

@@ -261,7 +261,7 @@ function logout() {
             $.iMessager.progress({
                 text: '正在退出中...'
             });
-            window.location.href = './212.html' + location.search;
+            window.location.href = 'http://localhost:8080/loginout.action';
         }
     });
 }

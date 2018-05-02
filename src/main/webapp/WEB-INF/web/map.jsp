@@ -91,6 +91,7 @@
                 marker.closeTime=e[i].closeTime;
                 marker.userEmail=e[i].userCharge.userEmail;
                 marker.username=e[i].userCharge.userTruename;
+                marker.phone=e[i].userCharge.phone;
               //  marker.status=e[i].status;
                 marker.on('click', function(e){
 
@@ -99,6 +100,7 @@
                         + "<li>  开馆时间: <span >"+e.target.openTime+"  </span></li>"
                         + "<li>  闭馆时间: <span >"+e.target.closeTime+"  </span></li>"
                         + "<li>  联系人: <span >"+e.target.username+"  </span></li>"
+                        + "<li>  手机号: <span >"+e.target.phone+"  </span></li>"
                         + "<li>  联系方式 : <span >"+e.target.userEmail +"  </span></li></ul>");
                     infoWindow.open(map, e.lnglat);
                 });
