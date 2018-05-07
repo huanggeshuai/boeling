@@ -151,13 +151,13 @@
             <a href="javascript:void(0)" data-toggle="topjui-menubutton"
                data-options="iconCls:'fa fa-user',hasDownArrow:false"
                style="color:#fff;">${admin.userTruename}</a>|
-            <a href="javascript:void(0)" id="mb3" data-toggle="topjui-menubutton"
-               data-options="menu:'#mm3',iconCls:'fa fa-cog',hasDownArrow:true" style="color:#fff;">设置</a>
-            <div id="mm3" style="width:74px;">
-                <div data-options="iconCls:'fa fa-info-circle'" onclick="javascript:void(0)">个人信息</div>
-                <div class="menu-sep"></div>
-                <div data-options="iconCls:'fa fa-key'" onclick="javascript:modifyPwd(0)">修改密码</div>
-            </div>|
+            <%--<a href="javascript:void(0)" id="mb3" data-toggle="topjui-menubutton"--%>
+               <%--data-options="menu:'#mm3',iconCls:'fa fa-cog',hasDownArrow:true" style="color:#fff;">设置</a>--%>
+            <%--<div id="mm3" style="width:74px;">--%>
+                <%--<div data-options="iconCls:'fa fa-info-circle'" onclick="javascript:void(0)">个人信息</div>--%>
+                <%--<div class="menu-sep"></div>--%>
+                <%--<div data-options="iconCls:'fa fa-key'" onclick="javascript:modifyPwd(0)">修改密码</div>--%>
+            <%--</div>|--%>
             <a href="javascript:void(0)" id="mb2" data-toggle="topjui-menubutton"
                data-options="menu:'#mm2',iconCls:'fa fa-tree',hasDownArrow:true" style="color:#fff;">主题</a>|
             <div id="mm2" style="width:180px;">
@@ -292,11 +292,11 @@
     </table>
 </div>
 
-<form id="pwdDialog"
-      data-options="title: '修改密码',
-      iconCls:'fa fa-key',
-      width: 400,
-      height: 300,
-      href: '/html/user/modifyPassword.html'"></form>
+<%--<form id="pwdDialog"--%>
+      <%--data-options="title: '修改密码',--%>
+      <%--iconCls:'fa fa-key',--%>
+      <%--width: 400,--%>
+      <%--height: 300,--%>
+      <%--href: 'user/'"></form>--%>
 </body>
 </html>

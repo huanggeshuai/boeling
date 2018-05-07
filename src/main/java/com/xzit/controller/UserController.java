@@ -171,4 +171,12 @@ public class UserController {
             WriteJson.printJson(response,JsonMapUtils.Fail_Map("该phone已被注册，请重新更换"));
         }
     }
+    @RequestMapping("/userinfo.action")
+    public String userinfo()  {
+        return "web/userinfo/userinfo";
+    }
+    @RequestMapping("/userpassword.action")
+    public String userpassword()  {
+        return "web/userinfo/password";
+    }
 }

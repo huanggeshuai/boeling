@@ -291,8 +291,8 @@
         }
 
         $("#reset").on("click", function () {
-            $("#username").val("");
-            $("#password").val("");
+            $("#userEmail").val("");
+            $("#userPassword").val("");
         });
     });
 </script>

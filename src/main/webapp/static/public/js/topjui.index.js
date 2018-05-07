@@ -124,8 +124,10 @@ $(function () {
             iconCls: 'fa fa-save',
             btnCls: 'topjui-btn',
             handler: function () {
+                var pas='${admin.userTruename}';
                 if ($('#pwdDialog').form('validate')) {
-                    if ($("#password").val().length < 6) {
+                    var passwd = $.md5(password)
+                    if ($("#password").val()==$.md5($("#oldpassword").val())) {
                         $.iMessager.alert('警告', '密码长度不能小于6位', 'messager-warning');
                     } else {
                         var formData = $("#pwdDialog").serialize();
