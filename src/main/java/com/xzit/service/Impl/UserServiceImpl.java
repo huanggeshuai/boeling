@@ -2,19 +2,23 @@ package com.xzit.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.xzit.entity.ExcelBean;
 import com.xzit.entity.User;
 import com.xzit.entity.UserExample;
 import com.xzit.mapper.UserMapper;
 import com.xzit.service.UserService;
-import com.xzit.utils.Constant;
-import com.xzit.utils.Dateutils;
-import com.xzit.utils.EntityToColum;
-import com.xzit.utils.MD5Util;
+import com.xzit.utils.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huang on 2018/3/31.
@@ -161,5 +165,44 @@ public class UserServiceImpl implements UserService {
         return userids;
     }
 
+    public XSSFWorkbook exportUserInfo(User user) throws InvocationTargetException, ClassNotFoundException, IntrospectionException, ParseException, IllegalAccessException {
+        UserExample userExample=new UserExample();
+        UserExample.Criteria criteria=userExample.createCriteria();
+        if(user.getUserEmail().length()>0){
+            criteria.andUserEmailLike("%"+user.getUserEmail()+"%");
+        }
+        if(user.getDeletestate()!=null){
+            criteria.andDeletestateEqualTo(user.getDeletestate());
+        }
+        if(user.getUserAuthority()!=null){
+            criteria.andUserAuthorityEqualTo(user.getUserAuthority());
+        }
+        if(user.getUserState()!=null){
+            criteria.andUserStateEqualTo(user.getUserState());
+        }
+        List<User> list = userMapper.selectByExample(userExample);
 
+        List<ExcelBean> excel=new ArrayList<ExcelBean>();
+        Map<Integer,List<ExcelBean>> map=new LinkedHashMap();
+        XSSFWorkbook xssfWorkbook=null;
+        //设置标题栏
+        excel.add(new ExcelBean("用户编号","userid",0));
+        excel.add(new ExcelBean("用户昵称","userNickname",0));
+        excel.add(new ExcelBean("用户姓名","userTruename",0));
+        excel.add(new ExcelBean("用户邮箱","userEmail",0));
+        excel.add(new ExcelBean("账户余额","userBalance",0));
+        excel.add(new ExcelBean("用户注册日期","userResignDate",0));
+        excel.add(new ExcelBean("用户注册日期","userLoginDate",0));
+        excel.add(new ExcelBean("用户登入次数","userLoginCount",0));
+        excel.add(new ExcelBean("用户联系方式","phone",0));
+        excel.add(new ExcelBean("用户使用设备","userDrive",0));
+        map.put(0, excel);
+        //  String sheetName = salaryDate + "月份收入";
+        //调用ExcelUtil的方法
+        xssfWorkbook = ExcelUtil.createExcelFile(User.class, list, map, "用户信息");
+        return xssfWorkbook;
+    }
 }
+
+
+

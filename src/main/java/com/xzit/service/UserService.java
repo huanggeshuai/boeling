@@ -3,7 +3,11 @@ package com.xzit.service;
 
 import com.github.pagehelper.PageInfo;
 import com.xzit.entity.User;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -24,4 +28,6 @@ public interface UserService {
     List<User> getCurator();
     boolean changePassword(User user);
     List<Integer> findidbyEmail(User user);
+     XSSFWorkbook exportUserInfo(User user) throws InvocationTargetException, ClassNotFoundException, IntrospectionException, ParseException, IllegalAccessException;
+
 }

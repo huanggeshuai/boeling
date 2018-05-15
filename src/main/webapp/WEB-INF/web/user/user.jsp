@@ -64,6 +64,9 @@
                      </select>
                  </td>
                  <td>
+                     <a href="export.action" class="easyui-linkbutton" iconCls="icon-export" plain="true">导出信息</a>
+
+
                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="searchinfo()">搜索</a>
                      <a href="#" class="easyui-linkbutton" iconCls="icon-clear" plain="true" onclick="cleartext()">清除文本框</a>
 
@@ -461,6 +464,10 @@ function searchinfo() {
 
 
 }
+    function exportexcel() {
+href:""
 
+
+    }
 </script>
 </html>
