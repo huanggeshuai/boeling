@@ -1,6 +1,6 @@
 package com.xzit.utils;
 
-import com.xzit.entity.ExcelBean;
+import com.xzit.entity.*;
 import org.apache.http.client.utils.DateUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -230,14 +230,24 @@ public class ExcelUtil {
                 // 如果是日期类型进行转换
                 if (rtn != null) {
                     if (rtn instanceof Date) {
-                        value = DateUtils.formatDate((Date)rtn,"yyyy-MM-dd");
+                        value = DateUtils.formatDate((Date)rtn,"yyyy-MM-dd HH:mm:ss");
                     } else if(rtn instanceof BigDecimal){
                         NumberFormat nf = new DecimalFormat("#,##0.00");
                         value=nf.format((BigDecimal)rtn).toString();
                     } else if((rtn instanceof Integer) && (Integer.valueOf(rtn.toString())<0 )){
                         value="--";
-                    }else {
-                        value = rtn.toString();
+                    }else if(rtn instanceof User ) {
+                        value = ((User) rtn).getUserTruename();
+                    }
+                    else if(rtn instanceof Provinces) {
+                        value = ((Provinces) rtn).getProvince();
+                    }else if(rtn instanceof Cities) {
+                        value = ((Cities) rtn).getCity();
+                    }else if(rtn instanceof Areas) {
+                        value = ((Areas) rtn).getArea();
+                    }
+                    else {
+                        value=rtn.toString();
                     }
                 }
                 XSSFCell cell = row.createCell(i);

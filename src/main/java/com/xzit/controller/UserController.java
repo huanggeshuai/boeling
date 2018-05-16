@@ -191,7 +191,7 @@ public class UserController {
     public String userpassword()  {
         return "web/userinfo/password";
     }
-    @RequestMapping("/export.action")
+    @RequestMapping("/exportuserinfo.action")
     @ResponseBody
     public  void export(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, IntrospectionException, IllegalAccessException, ParseException, InvocationTargetException, UnsupportedEncodingException {
         String excelname = "用户信息.xlsx";

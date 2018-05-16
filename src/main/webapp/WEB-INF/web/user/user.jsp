@@ -64,7 +64,7 @@
                      </select>
                  </td>
                  <td>
-                     <a href="export.action" class="easyui-linkbutton" iconCls="icon-export" plain="true">导出信息</a>
+                     <a href="exportuserinfo.action" class="easyui-linkbutton" iconCls="icon-export" plain="true">导出信息</a>
 
 
                      <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="searchinfo()">搜索</a>

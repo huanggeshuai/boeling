@@ -54,6 +54,7 @@
 
             <tr>
                 <td>
+                    <a href="exportvenuesinfo.action" class="easyui-linkbutton" iconCls="icon-export" plain="true">导出信息</a>
                     <%--<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="add()">增加</a>--%>
                     <%--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="editvenueallocation()">修改</a>--%>
                     <%--<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="remove()">注销</a>--%>

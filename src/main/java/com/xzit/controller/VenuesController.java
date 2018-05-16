@@ -7,6 +7,7 @@ import com.xzit.entity.User;
 import com.xzit.entity.Venues;
 import com.xzit.service.*;
 import com.xzit.utils.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,14 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.beans.IntrospectionException;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huang on 2018/4/3.
@@ -242,5 +247,35 @@ public class VenuesController {
        // String url="";
         return saveImgUrl;
     }
-
+    @RequestMapping("/exportvenuesinfo.action")
+    @ResponseBody
+    public  void exportvenues(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, IntrospectionException, IllegalAccessException, ParseException, InvocationTargetException, UnsupportedEncodingException {
+        String excelname = "场馆信息信息.xlsx";
+        if(excelname!=""){
+            response.reset(); //清除buffer缓存
+            Map<String,Object> map=new HashMap<String,Object>();
+            // 指定下载的文件名
+            //response.setHeader("Content-Disposition", "attachment;filename=用户信息.xlsx");
+            response.setHeader("Content-Disposition", "attachment; filename=" + java.net.URLEncoder.encode(excelname, "utf-8"));
+            //response.setHeader("Content-Disposition", "attachment;filename="+salaryDate+".xlsx");
+            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expires", 0);
+            XSSFWorkbook workbook=null;
+            //导出Excel对象
+            workbook = venuesService.exportvenuesInfo(new Venues());
+            OutputStream output;
+            try {
+                output = response.getOutputStream();
+                BufferedOutputStream bufferedOutPut = new BufferedOutputStream(output);
+                bufferedOutPut.flush();
+                workbook.write(bufferedOutPut);
+                bufferedOutPut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

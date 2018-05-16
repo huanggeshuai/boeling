@@ -1,6 +1,6 @@
 package com.xzit.entity;
 
-public class Areas {
+public class Areas  {
     private Integer id;
 
     private Integer areaid;
