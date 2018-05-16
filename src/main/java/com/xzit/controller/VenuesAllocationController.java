@@ -10,11 +10,15 @@ import com.xzit.utils.JsonMapUtils;
 import com.xzit.utils.WriteJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 
 /**
  * Created by huang on 2018/4/7.
@@ -85,5 +89,16 @@ public class VenuesAllocationController {
         }
         return flag;
     }
+    @RequestMapping("/import.action")
+    public void impotr(HttpServletRequest request, Model model) throws Exception {
+        int adminId = 1;
+        //获取上传的文件
+        MultipartHttpServletRequest multipart = (MultipartHttpServletRequest) request;
+        MultipartFile file = multipart.getFile("upfile");
+        InputStream in = file.getInputStream();
+        //数据导入
+        venuesAllocationService.importExcelInfo(in,file);
+        in.close();
 
+    }
 }

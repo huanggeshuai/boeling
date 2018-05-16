@@ -59,6 +59,7 @@
                     <%--<a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="remove()">注销</a>--%>
                     <%--<a href="#" class="easyui-linkbutton" iconCls="icon-recover" plain="true" onclick="recover()">恢复</a>--%>
                     <a href="#" class="easyui-linkbutton" iconCls="icon-back" plain="true" onclick="back()">返回</a>
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="uploadexcel()">导入</a>
                     <%--<span style="font-size: small">是否注销:</span>--%>
                     <%--<select  class="easyui-combobox" id="deletestate" name="userAuthority" data-options="panelHeight:'auto'" style="width: 120px" >--%>
                         <%--<option value ="0">未删除</option>--%>
@@ -76,6 +77,13 @@
 
 
     </div>
+    <div id="up" style="display: none" data-options="buttons:'#dlg-buttons'" >
+        <form id="uploadForm" action="import.action" enctype="multipart/form-data" method="post">
+            <input id="upfile" type="file" name="upfile">
+            <input type="button" value="导入" id="upLoadPayerCreditInfoExcel" name="btn">
+        </form>
+    </div>
+
     <div id="venuesallocationdialog" class="easyui-dialog"   data-options="closed:true,iconCls:'icon-save'" style="width:50%; height:80%;padding:10px;">
     </div>
 </div>
@@ -210,6 +218,33 @@
             ]
         });
     }
+    function uploadexcel() {
+        $('#up').dialog({
+            title: '新增/修改',
+            closed: false,
+            cache: false,
+            modal: false,
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: function () {
+                    //    $('#addStore').dialog('close');
+                    var f = $('#up').find('#uploadForm');
+                    f.submit();
+                }
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#up').dialog('close');
+                },
+
+            },
+
+            ]
+        });
+    }
+
     function back() {
         window.location.href= "http://localhost:8080/venues/findvenues.action"
     }
@@ -382,6 +417,7 @@
 
 
     }
+
 
 </script>
 </html>
