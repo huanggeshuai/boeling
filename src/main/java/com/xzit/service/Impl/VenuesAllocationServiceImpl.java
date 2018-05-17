@@ -63,7 +63,9 @@ public class VenuesAllocationServiceImpl implements VenuesAllocationService {
         }
         //批量插入
     rows =venuesAllocationMapper.insertforeach(venuesAllocations);
-
+  if(rows>0){
+      rows=venuesAllocations.size();
+  }
         return rows;
     }
 }
