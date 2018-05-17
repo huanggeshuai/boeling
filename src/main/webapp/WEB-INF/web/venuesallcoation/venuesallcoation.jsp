@@ -78,9 +78,9 @@
 
     </div>
     <div id="up" style="display: none" data-options="buttons:'#dlg-buttons'" >
-        <form id="uploadForm" action="import.action" enctype="multipart/form-data" method="post">
+        <form id="uploadexcel" action="import.action" enctype="multipart/form-data" method="post">
             <input id="upfile" type="file" name="upfile">
-            <input type="button" value="导入" id="upLoadPayerCreditInfoExcel" name="btn">
+            <%--<input type="button" value="导入" id="upLoadPayerCreditInfoExcel" name="btn">--%>
         </form>
     </div>
 
@@ -220,7 +220,7 @@
     }
     function uploadexcel() {
         $('#up').dialog({
-            title: '新增/修改',
+            title: '上传文件',
             closed: false,
             cache: false,
             modal: false,
@@ -228,9 +228,21 @@
                 text: '确定',
                 iconCls: 'icon-ok',
                 handler: function () {
-                    //    $('#addStore').dialog('close');
-                    var f = $('#up').find('#uploadForm');
-                    f.submit();
+                    $('#uploadexcel').form('submit', {
+                        url: 'import.action',
+                        onSubmit: function () {
+                            if($("#upfile").val()==""){
+                                $.messager.alert('提示消息',"请选择要上传的图片!",'info');
+                                return false;
+                            }
+                        },
+                        success: function (data) {
+                            var obj = JSON.parse(data) ;
+                            $.messager.alert('提示消息',obj.msg,'info');
+                            $('#up').dialog('close');
+                            $("#venuesallocation").datagrid('reload');
+                        }
+                    });
                 }
             }, {
                 text: '取消',

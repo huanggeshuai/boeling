@@ -233,4 +233,53 @@
                  javaType="com.xzit.entity.Venues">
     </association>
   </resultMap>
+
+  <insert id="insertforeach" parameterType="java.util.List" >
+
+    <foreach collection="list" item="item" index="index" separator=";">
+      insert into venues_allocation
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.venuesAllocationId != null" >
+          venues_allocation_id,
+        </if>
+        <if test="item.venuesid != null" >
+          venuesid,
+        </if>
+        <if test="item.venuesConfiguration != null" >
+          venues_configuration,
+        </if>
+        <if test="item.venuesAllocationState != null" >
+          venues_allocation_state,
+        </if>
+        <if test="item.feeScale != null" >
+          fee_scale,
+        </if>
+        <if test="item.remark != null" >
+          remark,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.venuesAllocationId != null" >
+          #{item.venuesAllocationId,jdbcType=INTEGER},
+        </if>
+        <if test="item.venuesid != null" >
+          #{item.venuesid,jdbcType=INTEGER},
+        </if>
+        <if test="item.venuesConfiguration != null" >
+          #{item.venuesConfiguration,jdbcType=INTEGER},
+        </if>
+        <if test="item.venuesAllocationState != null" >
+          #{item.venuesAllocationState,jdbcType=INTEGER},
+        </if>
+        <if test="item.feeScale != null" >
+          #{item.feeScale,jdbcType=DECIMAL},
+        </if>
+        <if test="item.remark != null" >
+          #{item.remark,jdbcType=VARCHAR},
+        </if>
+      </trim>
+
+    </foreach>
+
+  </insert>
 </mapper>

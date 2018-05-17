@@ -90,15 +90,22 @@ public class VenuesAllocationController {
         return flag;
     }
     @RequestMapping("/import.action")
-    public void impotr(HttpServletRequest request, Model model) throws Exception {
-        int adminId = 1;
-        //获取上传的文件
+    public void impotr(HttpServletRequest request,HttpServletResponse response) throws Exception {
         MultipartHttpServletRequest multipart = (MultipartHttpServletRequest) request;
         MultipartFile file = multipart.getFile("upfile");
         InputStream in = file.getInputStream();
+        long flag=0;
         //数据导入
-        venuesAllocationService.importExcelInfo(in,file);
+        try {
+           flag= venuesAllocationService.importExcelInfo(in,file);
+        }catch (Exception e){
+            WriteJson.printJson(response, JsonMapUtils.Fail_Map("失败，原因："+e.getMessage()));
+        }
+   if(flag>0){
+       WriteJson.printJson(response, JsonMapUtils.Fail_Map("导入"+flag+"行"));
+   }else {
+       WriteJson.printJson(response, JsonMapUtils.Fail_Map("失败"));
+   }
         in.close();
-
     }
 }

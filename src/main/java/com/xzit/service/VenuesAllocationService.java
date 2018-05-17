@@ -14,5 +14,5 @@ public interface VenuesAllocationService {
     boolean addvenuesallocation(VenuesAllocation venuesAllocation);
     boolean editvenuesallocation(VenuesAllocation venuesAllocation);
     VenuesAllocation findbyid(Integer venuesAllocationId );
-    void importExcelInfo(InputStream in, MultipartFile file) throws Exception;
+    long importExcelInfo(InputStream in, MultipartFile file) throws Exception;
 }

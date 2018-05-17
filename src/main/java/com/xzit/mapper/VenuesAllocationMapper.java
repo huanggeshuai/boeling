@@ -27,4 +27,5 @@ public interface VenuesAllocationMapper {
     int updateByPrimaryKeySelective(VenuesAllocation record);
 
     int updateByPrimaryKey(VenuesAllocation record);
+    long insertforeach(List<VenuesAllocation> record);
 }

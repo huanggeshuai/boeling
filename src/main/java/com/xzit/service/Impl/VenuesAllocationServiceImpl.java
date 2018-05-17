@@ -44,8 +44,9 @@ public class VenuesAllocationServiceImpl implements VenuesAllocationService {
         return venuesAllocationMapper.selectByPrimaryKey(venuesAllocationId);
     }
 
-    public void importExcelInfo(InputStream in, MultipartFile file) throws Exception {
+    public long importExcelInfo(InputStream in, MultipartFile file) throws Exception {
         List<List<Object>> listob = ExcelUtil.getBankListByExcel(in,file.getOriginalFilename());
+       long rows=-1;
         List<VenuesAllocation> venuesAllocations = new ArrayList<VenuesAllocation>();
         //遍历listob数据，把数据放到List中
         for (int i = 0; i < listob.size(); i++) {
@@ -61,8 +62,8 @@ public class VenuesAllocationServiceImpl implements VenuesAllocationService {
             venuesAllocations.add(venuesAllocation);
         }
         //批量插入
-        for(VenuesAllocation venuesAllocations1:venuesAllocations){
-              venuesAllocationMapper.insertSelective(venuesAllocations1);
-        }
+    rows =venuesAllocationMapper.insertforeach(venuesAllocations);
+
+        return rows;
     }
 }
